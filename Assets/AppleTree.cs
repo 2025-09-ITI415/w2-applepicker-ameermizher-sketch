@@ -1,44 +1,47 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ using System.Collections.Generic;
+ using UnityEngine;
 
-public class AppleTree : MonoBehaviour {
-    [Header("Inscribed")]
-    public GameObject applePrefab;
-    public float speed = 1f;
-    public float leftAndRightEdge = 10f;
-    public float changeDirChance = 0.02f;
-    public float secondsBetweenAppleDrops = 1f;
+ public class AppleTree : MonoBehaviour {
+     [Header("Inscribed")]                                                  // a
+     // Prefab for instantiating apples
+     public GameObject   applePrefab;
+ 
+     // Speed at which the AppleTree moves
+     public float        speed = 1f;
+ 
+     // Distance where AppleTree turns around
+     public float        leftAndRightEdge = 10f;
+ 
+     // Chance that the AppleTree will change directions
+     public float        changeDirChance = 0.1f;
+ 
+     // Seconds between Apples instantiations
+     public float        appleDropDelay = 1f;
 
-    void Start() {
-        InvokeRepeating("DropApple", 2f, secondsBetweenAppleDrops);
+     void Start () {
+         // Start dropping apples                                           // b
+     }
+
+     void Update () {
+         // Basic Movement                                                  // b
+         // Changing Direction                                              // b
+     }
+ }
+ public class AppleTree : MonoBehaviour {
+     
+     void Start() {
+         // Start dropping apples                                          
+        Invoke( "DropApple", 2f );                                        // a
+     }
+
+     void DropApple() {                                                    // b
+         GameObject apple = Instantiate<GameObject>( applePrefab );        // c
+         apple.transform.position = transform.position;                    // d
+         Invoke( "DropApple", appleDropDelay );                            // e
     }
 
-    void DropApple() {
-        GameObject apple = Instantiate<GameObject>(applePrefab);
-        apple.transform.position = transform.position;
-    }
+     void Update() {  }                                                   // f
+     
+ }
 
-    void Update() {
-        Vector3 pos = transform.position;
-        pos.x += speed * Time.deltaTime;
-        transform.position = pos;
-
-        if (pos.x < -leftAndRightEdge) {
-            speed = Mathf.Abs(speed);
-        } else if (pos.x > leftAndRightEdge) {
-         }
-    }
-}
-public class AppleTree : MonoBehaviour {
-    // ...
-
-    void Update() {
-        // Basic Movement
-        Vector3 pos = transform.position;
-        pos.x += speed * Time.deltaTime;
-        transform.position = pos;
-
-        // Changing Direction
-    }
-}
